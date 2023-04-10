@@ -1,24 +1,30 @@
 # IEEE-754 Decimal-32 floating-point converter
 
-A web-based IEEE-754 Decimal-32 floating-point converter that can convert decimal and base-10 inputs (up to 7 digits and more) into binary output with spaces between sections, hexadecimal equivalent, and with the option to output the results to a text file. This converter can handle all special cases, including NaN input, and provides the user with the ability to choose their preferred rounding method.
+A web-based IEEE-754 Decimal-32 floating-point converter that can convert decimal and base-10 inputs (up to 7 digits and more) into binary output with spaces between sections, hexadecimal equivalent, and with the option to output the results to a text file. 
+
+This converter can handle all special cases, including NaN input, and provides the user with the ability to choose their preferred rounding method.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Getting started
+1. Clone the repository.
+```bash
+git clone https://github.com/nicapos/CSARCH2-Simulation-Project.git
+```
+2. Navigate to the project folder.
+3. Run `npm i` to initialize and install the necessary modules.
 
-To run the app in development mode, run:
+## Usage
 
-### `npm start`
+To run the app in development mode, run `npm start`.
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To launch the test runner in the interactive watch mode, run `npm test`.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Content
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* [components](/src/components) - contains React components that are part of the user interface.
+* [public](/public/) - contains static assets such as css, js, and image files.
+* [utils](/src/utils) - contains functions that provide functionality.
 
 ## Learn More
 
