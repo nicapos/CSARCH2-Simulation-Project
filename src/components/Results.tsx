@@ -17,12 +17,27 @@ const Results = ({ input, onExit } : Props) => {
     exponent: input.exponent,
   });
 
+  const [binaryRepr, setBinaryRepr] = useState("");
+  const [hexRepr, setHexRepr] = useState("");
+
   const onExport = () => {
-    // TODO: Replace with actual export content and filename 
-    let text = "sample";
-    let filename = "sample.txt";
+    let inputString = input.coefficient + "e" + input.exponent;
+
+    let text = `Input: ${inputString}
+
+ANSWERS
+Normalized: ${significand}e${exponent}
+Binary Representation: ${binaryRepr}
+Hexadecimal: ${hexRepr}`;
+
+    let filename = `convert-output-${inputString}.txt`;
 
     exportTxt(text, filename);
+  }
+
+  const updateResults = (binaryResult: string, hexResult: string) => {
+    setBinaryRepr(binaryResult);
+    setHexRepr(hexResult);
   }
 
   return (
@@ -39,7 +54,7 @@ const Results = ({ input, onExit } : Props) => {
           </span>
         </Field>
 
-        <ConvertResults significand={significand} exponent={exponent} />
+        <ConvertResults significand={significand} exponent={exponent} onUpdate={updateResults} />
       </>
       }
 
@@ -55,10 +70,11 @@ const Results = ({ input, onExit } : Props) => {
 
 type CRProps = {
   significand: string|number,
-  exponent: string|number
+  exponent: string|number,
+  onUpdate: (binaryResult: string, hexResult: string) => void
 };
 
-const ConvertResults = ({ significand, exponent }: CRProps) => {
+const ConvertResults = ({ significand, exponent, onUpdate }: CRProps) => {
   const [binary, setBinary] = useState("");
   const [hex, setHex] = useState("");
 
@@ -71,13 +87,14 @@ const ConvertResults = ({ significand, exponent }: CRProps) => {
 
     axios.get(URL, { params: body })
       .then((res) => {
-        console.log(res.data);
         setBinary(res.data.binary);
         setHex(res.data.hex);
+
+        onUpdate(res.data.binary, res.data.hex);
       })
       .catch((err) => setError(err))
       .finally(() => setLoading(false))
-  }, [significand, exponent]);
+  }, [significand, exponent, onUpdate]);
   
   return (
     <>
