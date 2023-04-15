@@ -6,6 +6,8 @@ This converter can handle all special cases, including NaN input, and provides t
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This repository contains the front-end of the simulation project. The repository for the back-end can be found [here](https://github.com/nicapos/CSARCH2-Simulation-Project-backend).
+
 ## Getting started
 1. Clone the repository.
 ```bash
