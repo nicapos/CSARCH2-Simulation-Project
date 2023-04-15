@@ -1,6 +1,7 @@
 import { Button, Field, Input } from "./";
 import { DecimalRepr } from "../react-app-env.d";
 import useNormalizeAPI from "../hooks/useNormalizeAPI";
+import exportTxt from "../utils/exportText";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -15,6 +16,14 @@ const Results = ({ input, onExit } : Props) => {
     significand: input.coefficient,
     exponent: input.exponent,
   });
+
+  const onExport = () => {
+    // TODO: Replace with actual export content and filename 
+    let text = "sample";
+    let filename = "sample.txt";
+
+    exportTxt(text, filename);
+  }
 
   return (
     <>
@@ -37,7 +46,7 @@ const Results = ({ input, onExit } : Props) => {
       { error && <small className="text-sm text-red-500">{ error }</small> }
 
       <div className="grid gap-2 mt-4">
-        <Button className="bg-gray-300 active:bg-gray-400">export as .txt</Button> {/* TODO: Export .txt file onclick */}
+        <Button className="bg-gray-300 active:bg-gray-400" onClick={onExport}>export as .txt</Button>
         <Button className="bg-lime-400 active:bg-lime-500" onClick={onExit}>try again</Button>
       </div>
     </>
