@@ -53,7 +53,7 @@ Hexadecimal: ${hexRepr}`;
         <Field label="Normalized">
           <span className="border border-black rounded-none p-2.5">
             {isNaN(input.coefficient) ? NaN : 
-            <>{input.coefficient} &times; 10<sup>{input.exponent}</sup></>
+            <>{significand} &times; 10<sup>{exponent}</sup></>
             }
           </span>
         </Field>
