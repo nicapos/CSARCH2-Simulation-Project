@@ -12,33 +12,38 @@ const Form = ({ onSubmit }: FormProps) => {
   const [roundingMethod, setRounding] = useState<string>("");
 
   const checkValidInputs = () => {
-    const regexNumber = /^-?\d+(\.\d+)?$/;
-    return regexNumber.test(coefficient) && regexNumber.test(exponent);
+    const regexFloat = /^-?\d+(\.\d+)?$/; // allow digits, -, .
+    const regexInt = /^-?\d+$/; // allow digits, -
+    return regexFloat.test(coefficient) && regexInt.test(exponent);
   }
 
   const onChangeCoefficient = (e: ChangeEvent<HTMLInputElement>) => {
     const coeff = e.target.value;
-    const regexCoeffInput = /^-?\d+(\.\d+)?\.?$|^-?$/; // can start with "-", can contain "-", ".", and digits
     const digitCount = (coeff.match(/\d/g) || []).length;
 
-    if (!coeff || ( digitCount <= 16 && regexCoeffInput.test(coeff) )) {
+    if (!coeff || digitCount <= 16 ) {
       setCoefficient(e.target.value);
     }
   }
 
   const onChangeExponent = (e: ChangeEvent<HTMLInputElement>) => {
     const exp = e.target.value;
-    const regexExpInput = /^-?\d+$/;
     const digitCount = (exp.match(/\d/g) || []).length;
 
-    if (!exp || ( digitCount <= 16 && regexExpInput.test(exp))) {
+    if (!exp || digitCount <= 16) {
       setExponent(e.target.value);
     }
   }
 
   const onChangeSelect = (e: ChangeEvent<HTMLSelectElement>) => setRounding(e.target.value);
 
-  const handleSubmit = () => onSubmit(Number(coefficient), Number(exponent));
+  const handleSubmit = () => {
+    if (checkValidInputs()) {
+      onSubmit(Number(coefficient), Number(exponent));
+    } else {
+      onSubmit(NaN, NaN);
+    }
+  }
 
   return (
     <>
@@ -61,7 +66,7 @@ const Form = ({ onSubmit }: FormProps) => {
         </div>
       </Field>
 
-      <Button type="submit" className="bg-lime-400 active:bg-lime-500 w-full" disabled={!checkValidInputs()} onClick={handleSubmit}>
+      <Button type="submit" className="bg-lime-400 active:bg-lime-500 w-full" disabled={!(coefficient && exponent)} onClick={handleSubmit}>
         convert
       </Button>
     </>

@@ -8,6 +8,6 @@ export enum RoundingMethod {
 };
 
 export type DecimalRepr = {
-  coefficient: number;
-  exponent: number;
+  coefficient: number | NaN;
+  exponent: number | NaN;
 };

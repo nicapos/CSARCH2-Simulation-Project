@@ -23,10 +23,10 @@ const Results = ({ input, onExit } : Props) => {
   const onExport = () => {
     let inputString = input.coefficient + "e" + input.exponent;
 
-    let text = `Input: ${inputString}
+    let text = `Input: ${isNaN(input.coefficient) ? "NaN" : `${significand}e${exponent}`}
 
 ANSWERS
-Normalized: ${significand}e${exponent}
+Normalized: ${isNaN(input.coefficient) ? "NaN" : `${significand}e${exponent}`}
 Binary Representation: ${binaryRepr}
 Hexadecimal: ${hexRepr}`;
 
@@ -43,14 +43,18 @@ Hexadecimal: ${hexRepr}`;
   return (
     <>
       <span className="text-4xl text-center mb-4">
-        {input.coefficient} &times; 10<sup>{input.exponent}</sup>
+        {isNaN(input.coefficient) ? NaN : 
+          <>{input.coefficient} &times; 10<sup>{input.exponent}</sup></>
+        }
       </span>
 
       { loading ? "Loading..." : 
       <>
         <Field label="Normalized">
           <span className="border border-black rounded-none p-2.5">
-            {significand} x 10<sup>{exponent}</sup>
+            {isNaN(input.coefficient) ? NaN : 
+            <>{input.coefficient} &times; 10<sup>{input.exponent}</sup></>
+            }
           </span>
         </Field>
 
