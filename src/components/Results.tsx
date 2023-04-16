@@ -75,24 +75,24 @@ type CRProps = {
 };
 
 const ConvertResults = ({ significand, exponent, onUpdate }: CRProps) => {
-  const [binary, setBinary] = useState("");
-  const [hex, setHex] = useState("");
+  const [binary, setBinary] = useState<string>("");
+  const [hex, setHex] = useState<string>("");
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const URL = "https://simulation-project-backend.vercel.app/api/convert";
-    const body = { significand, exponent };
+    const headers = { accept: '*/*', params: { significand, exponent } };
 
-    axios.get(URL, { params: body })
+    axios.get(URL, headers)
       .then((res) => {
         setBinary(res.data.binary);
         setHex(res.data.hex);
 
         onUpdate(res.data.binary, res.data.hex);
       })
-      .catch((err) => setError(err))
+      .catch((err) => setError(Error(err).message))
       .finally(() => setLoading(false))
   }, [significand, exponent, onUpdate]);
   

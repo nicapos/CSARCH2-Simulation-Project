@@ -10,15 +10,14 @@ const useNormalizeAPI = (body) => {
 
   useEffect(() => {
     const URL = "https://simulation-project-backend.vercel.app/api/normalize";
-    const headers = { accept: '*/*' };
+    const headers = { accept: '*/*', params: body };
 
-    axios.get(URL, headers, body)
+    axios.get(URL, headers)
       .then((res) => {
-        console.log(res.data);
         setSignificand(res.data.significand);
         setExponent(res.data.exponent);
       })
-      .catch((err) => setError(err))
+      .catch((err) => setError(Error(err).message))
       .finally(() => setLoading(false))
   }, [body]);
 
